@@ -1,7 +1,7 @@
 # YATM
 Yet Another Task Manager
 
-##Project Members
+## Project Members
 - Michael Bilan
 - Charles Emerson
 - Nami Kim
