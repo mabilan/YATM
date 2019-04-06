@@ -1,5 +1,5 @@
 # YATM
-Yet Another Task Manager
+Yet Another Task Manager: the best project ever conceived of in CS 372 Spring 2019.
 
 ## Project Members
 - Michael Bilan
