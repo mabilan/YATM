@@ -2,13 +2,19 @@
 // Created by bryant on 4/16/19.
 //
 
-#include "task.hpp"
+#include "../include/task.hpp"
 
+int Task::_number_of_tasks= 0;
+Task::Task(){
+
+    ++_number_of_tasks;
+    _id = _number_of_tasks;
+}
 std::string Task::get_name(){
     return _name;
 }
 void Task::set_name(std::string name){
-    _name = name;
+    _name = move(name);
 }
 
 int Task::get_importance(){
@@ -29,7 +35,7 @@ std::string Task::get_category(){
     return _category;
 }
 void Task::set_category(std::string category){
-    _category = category;
+    _category = move(category);
 }
 
 std::string Task::get_duration(){
@@ -37,7 +43,7 @@ std::string Task::get_duration(){
 }
 void Task::set_duration(float duration, std::string unit){
     _duration = duration;
-    _duration_unit = unit;
+    _duration_unit = move(unit);
 }
 
 status Task::get_status(){
@@ -54,7 +60,7 @@ std::string Task::get_recurrence(){
     return _recurrence;
 }
 void Task::set_recurrence(std::string recurrence){
-    _recurrence = recurrence;
+    _recurrence = move(recurrence);
 }
 
 float Task::get_amount_completed(){
@@ -62,4 +68,8 @@ float Task::get_amount_completed(){
 }
 void Task::set_amount_completed(float completed){
     _amount_completed = completed;
+}
+
+int Task::get_id(){
+    return _id;
 }

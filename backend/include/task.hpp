@@ -17,10 +17,7 @@ enum class status {
 
 class Task {
 public:
-    Task(){
-        _number_of_tasks++;
-        _id = _number_of_tasks;
-    }
+    Task();
 
     std::string get_name();
     void set_name(std::string);
@@ -47,6 +44,8 @@ public:
     float get_amount_completed();
     void set_amount_completed(float);
 
+    int get_id();
+
 private:
     int _id;
     std::string _name{"New Task"};
@@ -57,10 +56,10 @@ private:
     std::string _duration_unit{"Hours"};
     status _status {status::NOT_YET_STARTED};
     std::string _recurrence{""};
-    float _amount_completed;
+    float _amount_completed{0};
 
     // denotes total lifetime tasks (never automatically decrease)
-    static int _number_of_tasks{0};
+    static int _number_of_tasks;
 };
 
 #endif //YATM_BACKEND_TASK_HPP
