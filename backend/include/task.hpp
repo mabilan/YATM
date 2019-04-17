@@ -15,8 +15,37 @@ enum class status {
     NOT_GOING_TO_HAPPEN
 };
 
-class task {
+class Task {
 public:
+    Task(){
+        _number_of_tasks++;
+        _id = _number_of_tasks;
+    }
+
+    std::string get_name();
+    void set_name(std::string);
+
+    int get_importance();
+    void set_importance(int);
+
+    int get_urgency();
+    void set_urgency(int);
+
+    std::string get_category();
+    void set_category(std::string);
+
+    std::string get_duration();
+    void set_duration(float, std::string);
+
+    status get_status();
+    void set_status(status);
+
+    bool is_recurring();
+    std::string get_recurrence();
+    void set_recurrence(std::string);
+
+    float get_amount_completed();
+    void set_amount_completed(float);
 
 private:
     int _id;
@@ -30,7 +59,8 @@ private:
     std::string _recurrence{""};
     float _amount_completed;
 
-    static int _number_of_tasks;
+    // denotes total lifetime tasks (never automatically decrease)
+    static int _number_of_tasks{0};
 };
 
 #endif //YATM_BACKEND_TASK_HPP
