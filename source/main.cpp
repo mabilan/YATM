@@ -3,7 +3,7 @@
 // Simple SFML main.
 
 
-#include <vector>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 
@@ -16,13 +16,40 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "YATM: Yet Another Task Manager");
 
     // sf::FloatRect(left, top, width, height)
-    auto bounds = sf::FloatRect(0.0, 0.0, 800.0, 600.0);
+    auto bounds = sf::FloatRect(0.0, 0.0, 600.0, 600.0);
     auto axes = Axes(bounds, 2.0, sf::Color::White);
 
-    // Circles drawn when user clicks
-    const float CIRCLE_RADIUS = 5.0; 
+    // Template Circle to be used within Graph
+    const float CIRCLE_RADIUS = 5.0;
     const auto CIRCLE_COLOR = sf::Color::Red;
-    auto circles = std::vector<sf::CircleShape>{};
+    auto circle = sf::CircleShape(CIRCLE_RADIUS);
+    circle.setFillColor(CIRCLE_COLOR);
+    circle.setPointCount(3); // <-- Makes it look like a triangle
+
+    // Graph
+    auto graph = Graph(axes, circle);
+
+    // Sidebar - For Task Stack
+    auto sidebar = sf::RectangleShape(sf::Vector2f{200.0, 600.0});
+    sidebar.setPosition(600.0, 0.0);
+    sidebar.setFillColor(sf::Color::White);
+
+    // The following glob is all necessary for text.
+    sf::Font font;
+    if (!font.loadFromFile("../assets/Ubuntu-M.ttf"))
+    {
+        std::cout << "ERROR: Unable to load Ubuntu-M.ttf" << std::endl; 
+        return 1;
+    }
+    sf::Text sidebarHeader;
+    sidebarHeader.setFont(font);
+    sidebarHeader.setString("Task Stack");
+    sidebarHeader.setCharacterSize(24); // in pixels, not points!
+    sidebarHeader.setColor(sf::Color::Black);
+
+    // Center the text
+    auto width = sidebarHeader.getLocalBounds().width;
+    sidebarHeader.setPosition(600.0 + (200.0 - width)/2.0, 10.0);
 
     // Start the game loop
     while (window.isOpen())
@@ -40,41 +67,18 @@ int main()
             // Mouse Click
             else if (event.type == sf::Event::MouseButtonPressed)
             {
+                auto x = event.mouseButton.x;
+                auto y = event.mouseButton.y;
+
                 // Mouse Click - Left Button
                 if (event.mouseButton.button == sf::Mouse::Button::Left)
                 {
-                    auto x = event.mouseButton.x;
-                    auto y = event.mouseButton.y;
-
-                    auto circle = sf::CircleShape(CIRCLE_RADIUS);
-                    circle.setPosition(float(x) - CIRCLE_RADIUS, float(y) - CIRCLE_RADIUS);
-                    circle.setFillColor(CIRCLE_COLOR);
-                    circles.push_back(circle);
+                    graph.addCircle(x,y);
                 }
                 // Mouse Click - Right Button
                 else if (event.mouseButton.button == sf::Mouse::Button::Right)
                 {
-                    auto x = event.mouseButton.x;
-                    auto y = event.mouseButton.y;
-
-                    // From front to back (traverse vector in reverse)
-                    for (auto iter = circles.rbegin(); iter != circles.rend(); ++iter)
-                    {
-                        auto position = iter->getPosition();
-                        auto circX = position.x + CIRCLE_RADIUS;
-                        auto circY = position.y + CIRCLE_RADIUS;
-
-                        // If within circle, erase it
-                        if ((x-circX)*(x-circX) + (y-circY)*(y-circY) <= CIRCLE_RADIUS*CIRCLE_RADIUS)
-                        {
-                            // Revese iterators have an offset by one
-                            // error and need to be converted into a 
-                            // regular iterator to erase
-                            std::advance(iter, 1);
-                            circles.erase( iter.base() );
-                            break;
-                        }
-                    }
+                    graph.removeCircle(x, y);
                 }
             }
         }
@@ -82,14 +86,12 @@ int main()
         // Clear screen
         window.clear();
 
-        // Draw Axes
-        window.draw(axes);
+        // Draw Graph
+        window.draw(graph);
 
-        // Draw Circles
-        for (const auto & circle : circles)
-        {
-            window.draw(circle);
-        }
+        // Draw Sidebar
+        window.draw(sidebar);
+        window.draw(sidebarHeader);
 
         // Update the window
         window.display();
