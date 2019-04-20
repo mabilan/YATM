@@ -6,10 +6,17 @@
 #include <SFML/Graphics.hpp>
 
 
+#include "graphics.hpp"
+
+
 int main()
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "YATM: Yet Another Task Manager");
+
+    // sf::FloatRect(left, top, width, height)
+    auto bounds = sf::FloatRect(0.0, 0.0, 800.0, 600.0);
+    auto axes = Axes(bounds, 2.0, sf::Color::White);
 
     // Start the game loop
     while (window.isOpen())
@@ -26,6 +33,9 @@ int main()
 
         // Clear screen
         window.clear();
+
+        // Draw Axes
+        window.draw(axes);
 
         // Update the window
         window.display();
