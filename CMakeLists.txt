@@ -33,7 +33,7 @@ set(SOURCE_MAIN source/main.cpp)
 
 # Define all sources which may get included in the testing
 set(SOURCE_FILES
-    
+    source/graphics.cpp
 )
 
 # Define sources and main executable
