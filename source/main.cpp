@@ -37,8 +37,10 @@ int main()
             {
                 window.close();
             }
+            // Mouse Click
             else if (event.type == sf::Event::MouseButtonPressed)
             {
+                // Mouse Click - Left Button
                 if (event.mouseButton.button == sf::Mouse::Button::Left)
                 {
                     auto x = event.mouseButton.x;
@@ -48,6 +50,31 @@ int main()
                     circle.setPosition(float(x) - CIRCLE_RADIUS, float(y) - CIRCLE_RADIUS);
                     circle.setFillColor(CIRCLE_COLOR);
                     circles.push_back(circle);
+                }
+                // Mouse Click - Right Button
+                else if (event.mouseButton.button == sf::Mouse::Button::Right)
+                {
+                    auto x = event.mouseButton.x;
+                    auto y = event.mouseButton.y;
+
+                    // From front to back (traverse vector in reverse)
+                    for (auto iter = circles.rbegin(); iter != circles.rend(); ++iter)
+                    {
+                        auto position = iter->getPosition();
+                        auto circX = position.x + CIRCLE_RADIUS;
+                        auto circY = position.y + CIRCLE_RADIUS;
+
+                        // If within circle, erase it
+                        if ((x-circX)*(x-circX) + (y-circY)*(y-circY) <= CIRCLE_RADIUS*CIRCLE_RADIUS)
+                        {
+                            // Revese iterators have an offset by one
+                            // error and need to be converted into a 
+                            // regular iterator to erase
+                            std::advance(iter, 1);
+                            circles.erase( iter.base() );
+                            break;
+                        }
+                    }
                 }
             }
         }
