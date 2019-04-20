@@ -3,6 +3,7 @@
 // Simple SFML main.
 
 
+#include <vector>
 #include <SFML/Graphics.hpp>
 
 
