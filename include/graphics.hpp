@@ -36,12 +36,17 @@ public:
 
 	void setTemplateCircle(sf::CircleShape circle);
 
+    const std::vector<sf::Vector2f> & getPositions() const;
+
+    void setFocus(int index);
+
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
 	Axes _axes;
 	sf::CircleShape _templateCircle;
 	std::vector<sf::Vector2f> _positions;
+    int _focus;
 };
 
 #endif // #ifndef FILE_GRAPHICS_HPP_INCLUDED

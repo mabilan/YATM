@@ -40,13 +40,17 @@ void Axes::draw(sf::RenderTarget& target, sf::RenderStates states) const
 Graph::Graph(Axes axes, sf::CircleShape circle)
     : _axes{axes},
       _templateCircle{circle},
-      _positions{}
+      _positions{},
+      _focus{-1}
 { }
 
 void Graph::addCircle(float x, float y)
 {
     if (_axes.contains(x,y))
     {
+        // Set focus to newly created item
+        _focus = _positions.size();
+
         const auto CIRCLE_RADIUS = _templateCircle.getRadius();
 
         _positions.emplace_back( sf::Vector2f{x - CIRCLE_RADIUS, y - CIRCLE_RADIUS} );
@@ -59,6 +63,9 @@ void Graph::removeCircle(float x, float y)
     {
         return;
     }
+
+    // Focus nothing
+    _focus = -1;
 
     const auto CIRCLE_RADIUS = _templateCircle.getRadius();
 
@@ -89,6 +96,15 @@ void Graph::setTemplateCircle(sf::CircleShape circle)
     _templateCircle = circle;
 }
 
+const std::vector<sf::Vector2f> & Graph::getPositions() const
+{
+    return _positions;
+}
+
+void Graph::setFocus(int focus)
+{
+    _focus = focus;
+}
 
 void Graph::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -96,9 +112,22 @@ void Graph::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     auto temp = _templateCircle;
 
-    for (const auto & position : _positions)
+    for (int i = 0; i < int(_positions.size()); ++i)
     {
-        temp.setPosition(position);
-        target.draw(temp, states);
+        auto position = _positions[i];
+        if (_focus == i)
+        {
+            auto focusedCircle = _templateCircle;
+            focusedCircle.setOutlineColor(sf::Color::Yellow);
+            focusedCircle.setOutlineThickness(2.0);
+
+            focusedCircle.setPosition(position);
+            target.draw(focusedCircle, states);
+        }
+        else
+        {
+            temp.setPosition(position);
+            target.draw(temp, states);
+        }
     }
 }

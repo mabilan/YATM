@@ -3,9 +3,11 @@
 // Simple SFML main.
 
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "imgui.h"
+#include "imgui-SFML.h"
 
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "graphics.hpp"
 
@@ -14,6 +16,8 @@ int main()
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode(800, 600), "YATM: Yet Another Task Manager");
+    window.setVerticalSyncEnabled(true);
+    ImGui::SFML::Init(window);
 
     // sf::FloatRect(left, top, width, height)
     auto bounds = sf::FloatRect(0.0, 0.0, 600.0, 600.0);
@@ -29,27 +33,8 @@ int main()
     // Graph
     auto graph = Graph(axes, circle);
 
-    // Sidebar - For Task Stack
-    auto sidebar = sf::RectangleShape(sf::Vector2f{200.0, 600.0});
-    sidebar.setPosition(600.0, 0.0);
-    sidebar.setFillColor(sf::Color::White);
-
-    // The following glob is all necessary for text.
-    sf::Font font;
-    if (!font.loadFromFile("../assets/Ubuntu-M.ttf"))
-    {
-        std::cout << "ERROR: Unable to load Ubuntu-M.ttf" << std::endl; 
-        return 1;
-    }
-    sf::Text sidebarHeader;
-    sidebarHeader.setFont(font);
-    sidebarHeader.setString("Task Stack");
-    sidebarHeader.setCharacterSize(24); // in pixels, not points!
-    sidebarHeader.setColor(sf::Color::Black);
-
-    // Center the text
-    auto width = sidebarHeader.getLocalBounds().width;
-    sidebarHeader.setPosition(600.0 + (200.0 - width)/2.0, 10.0);
+    // Used by ImGui
+    sf::Clock deltaClock;
 
     // Start the game loop
     while (window.isOpen())
@@ -59,6 +44,9 @@ int main()
 
         while (window.pollEvent(event))
         {
+            // Let ImGui process events too
+            ImGui::SFML::ProcessEvent(event);
+
             // Close window: exit
             if (event.type == sf::Event::Closed)
             {
@@ -83,19 +71,50 @@ int main()
             }
         }
 
+        // *** ImGui Widget for Task Stack
+
+        // Imgui Update() Required
+        ImGui::SFML::Update(window, deltaClock.restart());
+
+        // ImGuiCond_Always forces these conditions
+        ImGui::SetNextWindowSize(ImVec2(200, 600), ImGuiCond_Always);
+        ImGui::SetNextWindowPos(ImVec2(600, 0), ImGuiCond_Always);
+        ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+        ImGui::Begin("Task Stack", 0, ImGuiWindowFlags_NoResize);
+
+        static int selected = 0;
+        const auto & positions = graph.getPositions();
+        for (int i = 0; i < int(positions.size()); ++i)
+        {
+            // This is temporary.
+            // Ideally, get C style strings from Michael Bilan's scheduler
+
+            char label[128];
+            sprintf(label, "Circle at (%d, %d)", int(positions[i].x), int(positions[i].y));
+            if (ImGui::Selectable(label, selected == i))
+            {
+                selected = i;
+                graph.setFocus(selected);
+            }
+        }
+        ImGui::End(); // End ImGui widget window
+
+
         // Clear screen
         window.clear();
 
         // Draw Graph
         window.draw(graph);
 
-        // Draw Sidebar
-        window.draw(sidebar);
-        window.draw(sidebarHeader);
+        // Render ImGui widgets on top of everything else
+        ImGui::SFML::Render(window);
 
         // Update the window
         window.display();
     }
+
+    // CJ: My understanding is ShutDown() does some clean up
+    ImGui::SFML::Shutdown();
 
     return 0;
 }
