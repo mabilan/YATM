@@ -25,13 +25,13 @@ public:
 
     void set_name(std::string);
 
-    int get_importance();
+    float get_importance();
 
-    void set_importance(int);
+    void set_importance(float);
 
-    int get_urgency();
+    float get_urgency();
 
-    void set_urgency(int);
+    void set_urgency(float);
 
     std::string get_category();
 
@@ -39,7 +39,7 @@ public:
 
     std::string get_duration();
 
-    void set_duration(float, std::string);
+    void set_duration(int, std::string);
 
     status get_status();
 
@@ -60,11 +60,11 @@ public:
 private:
     int _id;
     std::string _name{"New Task"};
-    int _importance{0};
-    int _urgency{0};
+    float _importance{0};
+    float _urgency{0};
     std::string _category;
-    float _duration{0};
-    std::string _duration_unit{"Hours"};
+    int _duration{0};
+    std::string _duration_unit{"Minutes"};
     status _status{status::NOT_YET_STARTED};
     std::string _recurrence{""};
     float _amount_completed{0};

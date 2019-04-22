@@ -23,22 +23,22 @@ void Task::set_name(std::string name)
     _name = move(name);
 }
 
-int Task::get_importance()
+float Task::get_importance()
 {
     return _importance;
 }
 
-void Task::set_importance(int importance)
+void Task::set_importance(float importance)
 {
     _importance = importance;
 }
 
-int Task::get_urgency()
+float Task::get_urgency()
 {
     return _urgency;
 }
 
-void Task::set_urgency(int urgency)
+void Task::set_urgency(float urgency)
 {
     _urgency = urgency;
 }
@@ -58,7 +58,7 @@ std::string Task::get_duration()
     return std::to_string(_duration) + " " + _duration_unit;
 }
 
-void Task::set_duration(float duration, std::string unit)
+void Task::set_duration(int duration, std::string unit)
 {
     _duration = duration;
     _duration_unit = move(unit);
