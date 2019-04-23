@@ -53,6 +53,7 @@ set(SOURCE_FILES
     source/graphics.cpp
     source/category.cpp
     source/task.cpp
+    source/task_grid.cpp
 )
 
 # Define sources and main executable

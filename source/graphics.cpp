@@ -7,6 +7,12 @@
 Axes::Axes(sf::FloatRect bounds, float thickness, sf::Color color)
     : _bounds{bounds}, _horizontalLine{}, _verticalLine{}
 {
+    setColor(color);
+    setThickness(thickness);
+}
+
+void Axes::setThickness(float thickness)
+{
     auto x = _bounds.left;
     auto y = _bounds.top;
     auto width = _bounds.width;
@@ -17,11 +23,15 @@ Axes::Axes(sf::FloatRect bounds, float thickness, sf::Color color)
     // Horizontal Axis
     _horizontalLine.setSize(sf::Vector2f(width, thickness));
     _horizontalLine.setPosition(x, height/2 - thickness/2);
-    _horizontalLine.setFillColor(color);
 
     // Vertical Axis
     _verticalLine.setSize(sf::Vector2f(thickness, height));
     _verticalLine.setPosition(width/2 - thickness/2, y);
+}
+
+void Axes::setColor(sf::Color color)
+{
+    _horizontalLine.setFillColor(color);
     _verticalLine.setFillColor(color);
 }
 

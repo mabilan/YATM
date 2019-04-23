@@ -12,6 +12,9 @@ public:
 
     ~Axes() = default;
 
+    void setThickness(float thickness);
+    void setColor(sf::Color color);
+
     bool contains(float x, float y) const;
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
