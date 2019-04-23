@@ -9,11 +9,11 @@ using std::cout, std::endl;
 
 int main(){
     Task task1;
-    cout << task1.get_name() << " " << task1.get_id() << endl;
+    cout << task1.getName() << " " << task1.getId() << endl;
 
     Task task2;
-    task2.set_name("Do the fisrt task");
-    cout << task2.get_name() << " " << task2.get_id() << endl;
+    task2.setName("Do the fisrt task");
+    cout << task2.getName() << " " << task2.getId() << endl;
 
     return 0;
 }

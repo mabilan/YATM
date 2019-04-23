@@ -13,93 +13,93 @@ Task::Task()
     _id = _number_of_tasks;
 }
 
-std::string Task::get_name()
+std::string Task::getName()
 {
     return _name;
 }
 
-void Task::set_name(std::string name)
+void Task::setName(std::string name)
 {
     _name = move(name);
 }
 
-float Task::get_importance()
+float Task::getImportance()
 {
     return _importance;
 }
 
-void Task::set_importance(float importance)
+void Task::setImportance(float importance)
 {
     _importance = importance;
 }
 
-float Task::get_urgency()
+float Task::getUrgency()
 {
     return _urgency;
 }
 
-void Task::set_urgency(float urgency)
+void Task::setUrgency(float urgency)
 {
     _urgency = urgency;
 }
 
-std::string Task::get_category()
+std::string Task::getCategory()
 {
     return _category;
 }
 
-void Task::set_category(std::string category)
+void Task::setCategory(std::string category)
 {
     _category = move(category);
 }
 
-std::string Task::get_duration()
+std::string Task::getDuration()
 {
     return std::to_string(_duration) + " " + _duration_unit;
 }
 
-void Task::set_duration(int duration, std::string unit)
+void Task::setDuration(int duration, std::string unit)
 {
     _duration = duration;
     _duration_unit = move(unit);
 }
 
-status Task::get_status()
+status Task::getStatus()
 {
     return _status;
 }
 
-void Task::set_status(status new_status)
+void Task::setStatus(status new_status)
 {
     _status = new_status;
 }
 
-bool Task::is_recurring()
+bool Task::isRecurring()
 {
     return _recurrence.empty();
 }
 
-std::string Task::get_recurrence()
+std::string Task::getRecurrence()
 {
     return _recurrence;
 }
 
-void Task::set_recurrence(std::string recurrence)
+void Task::setRecurrence(std::string recurrence)
 {
     _recurrence = move(recurrence);
 }
 
-float Task::get_amount_completed()
+float Task::getAmountCompleted()
 {
     return _amount_completed;
 }
 
-void Task::set_amount_completed(float completed)
+void Task::setAmountCompleted(float completed)
 {
     _amount_completed = completed;
 }
 
-int Task::get_id()
+int Task::getId()
 {
     return _id;
 }

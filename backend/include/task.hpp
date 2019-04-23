@@ -21,41 +21,41 @@ class Task
 public:
     Task();
 
-    std::string get_name();
+    std::string getName();
 
-    void set_name(std::string);
+    void setName(std::string name);
 
-    float get_importance();
+    float getImportance();
 
-    void set_importance(float);
+    void setImportance(float);
 
-    float get_urgency();
+    float getUrgency();
 
-    void set_urgency(float);
+    void setUrgency(float);
 
-    std::string get_category();
+    std::string getCategory();
 
-    void set_category(std::string);
+    void setCategory(std::string category);
 
-    std::string get_duration();
+    std::string getDuration();
 
-    void set_duration(int, std::string);
+    void setDuration(int duration, std::string unit);
 
-    status get_status();
+    status getStatus();
 
-    void set_status(status);
+    void setStatus(status new_status);
 
-    bool is_recurring();
+    bool isRecurring();
 
-    std::string get_recurrence();
+    std::string getRecurrence();
 
-    void set_recurrence(std::string);
+    void setRecurrence(std::string recurrence);
 
-    float get_amount_completed();
+    float getAmountCompleted();
 
-    void set_amount_completed(float);
+    void setAmountCompleted(float);
 
-    int get_id();
+    int getId();
 
 private:
     int _id;
