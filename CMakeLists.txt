@@ -51,6 +51,8 @@ set(EXT_SOURCE_FILES
 # Define all sources which may get included in the testing
 set(SOURCE_FILES
     source/graphics.cpp
+    source/category.cpp
+    source/task.cpp
 )
 
 # Define sources and main executable
