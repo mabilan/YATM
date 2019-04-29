@@ -5,10 +5,20 @@
 
 #include <memory>
 #include <SFML/Window.hpp>
+#include <string>
 
 class Category;
 
 #include "category.hpp"
+
+enum class status
+{
+    NOT_YET_STARTED,
+    WORK_IN_PROGRESS,
+    DONE,
+    DEFERRED,
+    NOT_GOING_TO_HAPPEN
+};
 
 class Task {
 public:
@@ -39,12 +49,33 @@ public:
     void drawFocused(sf::RenderWindow & window, sf::Vector2f position) const;
     void drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const;
 
+    status getStatus() const;
+    void setStatus(status new_status);
+
+    // TODO: Change time based parameters and return values to the Date/Time class
+    std::string getDuration() const;
+    void setDuration(int duration, std::string unit);
+
+    bool isRecurring() const;
+    std::string getRecurrence() const;
+    void setRecurrence(std::string recurrence);
+
+    float getAmountCompleted() const;
+    void setAmountCompleted(float);
+
+
 private:
     int _id;
-    std::string _name;
-    float _importance;
-    float _urgency;
-    std::shared_ptr<Category> _ptrToCategory;
+    std::string _name{"New Task"};
+    float _importance{0};
+    float _urgency{0};
+    std::shared_ptr<Category> _ptrToCategory {nullptr};
+    status _status{status::NOT_YET_STARTED};
+    // TODO: Change time based members to use the Date/Time class
+    int _duration{0};
+    std::string _duration_unit{"minute"};
+    std::string _recurrence{""};
+    float _amount_completed{0};
 
     // Denotes the total number of tasks ever created
     // (Increments each construction)
