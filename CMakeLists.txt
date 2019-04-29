@@ -5,10 +5,14 @@
 # Setup
 ########################################################################
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.0...3.14)
+cmake_policy(SET CMP0074 NEW)
 
 project(yatm)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++14 -Wall -O3")
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENTIONS OFF)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
 include_directories(
     "include"
     "ext/imgui"
@@ -22,8 +26,13 @@ include_directories(
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
+IF (WIN32)
+  set(SFML_ROOT "C:/src/")
+ENDIF()
+
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
+#set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2 REQUIRED system window graphics network audio)
 
 
