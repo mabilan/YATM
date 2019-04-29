@@ -4,7 +4,7 @@
 
 
 // ********************************************************************
-// Task Class Static Definitions 
+// Task Class Static Definitions
 // ********************************************************************
 
 const float Task::MAX_IMPORTANCE = 10.0;
@@ -78,11 +78,11 @@ void Task::drawFocused(sf::RenderWindow & window, sf::Vector2f position) const
 {
     if (_ptrToCategory)
     {
-        _ptrToCategory->drawFocused(window, *this, position);
+        _ptrToCategory->drawFocused(window, position);
     }
     else
     {
-        Category::Default->drawFocused(window, *this, position);
+        Category::Default->drawFocused(window, position);
     }
 }
 
@@ -90,10 +90,10 @@ void Task::drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const
 {
     if (_ptrToCategory)
     {
-        _ptrToCategory->drawUnfocused(window, *this, position);
+        _ptrToCategory->drawUnfocused(window, position);
     }
     else
     {
-        Category::Default->drawUnfocused(window, *this, position);
+        Category::Default->drawUnfocused(window, position);
     }
 }

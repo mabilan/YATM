@@ -30,8 +30,8 @@ public:
     void setFocusedDrawable(std::unique_ptr<sf::CircleShape> && drawablePtr);
     void setUnfocusedDrawable(std::unique_ptr<sf::CircleShape> && drawablePtr);
 
-    virtual void drawFocused(sf::RenderWindow & window, const Task & task, sf::Vector2f position);
-    virtual void drawUnfocused(sf::RenderWindow & window, const Task & task, sf::Vector2f position);
+    virtual void drawFocused(sf::RenderWindow & window, sf::Vector2f position);
+    virtual void drawUnfocused(sf::RenderWindow & window, sf::Vector2f position);
 
 private:
     int _id;
