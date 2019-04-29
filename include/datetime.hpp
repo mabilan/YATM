@@ -9,10 +9,12 @@
 
 class DateTime{
 public:
-    Date(int month, int date, int year, int hour, int minute, bool AM);
-    ~Date() = default;
+    DateTime();
 
-    void setDateTime(int month, int date, int year, int hour, int minute, bool AM);
+    DateTime(int month, int date, int year, int hour, int minute, bool am);
+    ~DateTime() = default;
+
+    void setDateTime(int month, int date, int year, int hour, int minute, bool am);
     std::vector<int> getDateTime();
 
 
@@ -24,9 +26,10 @@ private:
     int _year;
     int _hour;
     int _minute;
-    bool _AM;     // True: AM, False: PM
+    bool _am;     // True: AM, False: PM
 };
 
 
 
 #endif //YATM_DATETIME_H
+
