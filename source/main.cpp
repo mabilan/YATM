@@ -18,7 +18,7 @@ enum class AppMode
     TASK_GRID_VIEW, // View Tasks on a Grid
     CALENDAR_VIEW,  // View Tasks on a Calendar @TODO
     NEW_TASK,       // Place Task on Grid
-    TASK_DETAILS,   // Update task meta data 
+    TASK_DETAILS,   // Update task meta data
     ADD_CATEGORY,   // Create new category @TODO
     DELETE_PROMPT   // Prompt for Delete Task
 };
@@ -61,7 +61,7 @@ int main()
     // Define Default Category
     defineDefaultCategory();
 
-    // @TODO - Load existing task list from file 
+    // @TODO - Load existing task list from file
     std::vector<Task> tasklist{};
     auto selected = tasklist.end(); // <- Used for focusing tasks
 
@@ -115,7 +115,8 @@ int main()
                     mode = AppMode::NEW_TASK;
                     std::cout << "NEW_TASK" << std::endl;
                 }
-                else if (event.key.code == sf::Keyboard::Delete)
+                else if (event.key.code == sf::Keyboard::Delete ||
+                         event.key.code == sf::Keyboard::BackSpace)
                 {
                     mode = AppMode::DELETE_PROMPT;
                     std::cout << "DELETE_PROMPT" << std::endl;
@@ -146,8 +147,8 @@ int main()
                             // selected points to the newly created element
                             selected =  std::prev(tasklist.end());;
 
-                            selected->setUrgency(urgVsImp.x);
-                            selected->setImportance(urgVsImp.y);
+                            selected-> urgency = urgVsImp.x;
+                            selected-> importance = urgVsImp.y;
                         }
                         else
                         {
@@ -206,7 +207,7 @@ int main()
             ImGui::Text("Are you sure you want to delete the task: ");
 
             ImGui::PushID(&selected);
-            auto name = selected->getName();
+            auto name = selected->name;
 
             // TextUnformatted(char * begin, char * end)
             ImGui::TextUnformatted(name.c_str(), name.c_str() + name.size());
@@ -236,9 +237,9 @@ int main()
             ImGui::Begin("Task Details");
 
             auto id = selected->getId();
-            auto name = selected->getName();
-            auto importance = selected->getImportance();
-            auto urgency = selected->getUrgency();
+            auto name = selected->name;
+            auto importance = selected->importance;
+            auto urgency = selected->urgency;
 
             ImGui::Value("Id", id);
 
@@ -246,17 +247,17 @@ int main()
             strcpy(buffer, name.c_str()); // copy name to buffer
             if (ImGui::InputText("Name", buffer, 256, ImGuiInputTextFlags_EnterReturnsTrue))
             {
-                selected->setName(std::string(buffer));
+                selected-> name = std::string(buffer);
             }
 
             if (ImGui::SliderFloat("Importance", &importance, Task::MIN_IMPORTANCE, Task::MAX_IMPORTANCE))
             {
-                selected->setImportance(importance);
+                selected-> importance = importance;
             }
 
             if (ImGui::SliderFloat("Urgency", &urgency, Task::MIN_URGENCY, Task::MAX_URGENCY))
             {
-                selected->setUrgency(urgency);
+                selected-> urgency = urgency;
             }
             ImGui::End(); // End "Task Details"
         }
@@ -270,7 +271,7 @@ int main()
 
         for (auto iter = tasklist.begin(); iter != tasklist.end(); ++iter)
         {
-            auto name = iter->getName();
+            auto name = iter->name;
             auto id = iter->getId();
 
             name = name + "##" + std::to_string(id);
