@@ -10,6 +10,7 @@
 class Time{
 public:
     Time(int month, int date, int year);
+    Time(const Time &obj);
     ~Time() = default;
 
     void setTime(int month, int date, int year);

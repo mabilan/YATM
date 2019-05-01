@@ -5,7 +5,6 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#include <tuple>
 
 using std::string;
 using std::endl;
@@ -13,6 +12,12 @@ using std::cout;
 
 
 Time::Time(int month, int date, int year): _month(month), _date(date), _year(year){}
+
+Time::Time(const Time &obj){
+    _month = obj._month;
+    _date = obj._date;
+    _year = obj._year;
+}
 
 void Time::setTime(int month, int date, int year){
     _month = month;
