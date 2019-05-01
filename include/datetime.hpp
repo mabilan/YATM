@@ -23,10 +23,9 @@ private:
 
 class Date{
 public:
-    Date();
-
-    Date(int month, int date, int year);
+    Date() = default;
     ~Date() = default;
+    Date(int month, int date, int year);
 
     void setDate(int month, int date, int year);
     void currentTime();

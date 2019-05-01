@@ -26,7 +26,6 @@ std::vector<int> Time::getTime(){
 
 
 
-
 void Date::currentTime(){
     struct tm *currtime;
     std::time_t tim;
