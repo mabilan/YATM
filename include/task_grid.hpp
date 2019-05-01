@@ -27,7 +27,7 @@ public:
     // Task interaction of Importance vs Urgency and drawing position
     sf::Vector2f getPosition(const Task & task) const;
 
-    void draw(sf::RenderWindow & window, const std::vector<Task> & tasklist, std::vector<Task>::iterator selected);
+    void draw(sf::RenderWindow & window, const std::vector<Task> & tasklist, int idOfSelected);
 
 private:
     sf::FloatRect _bounds;

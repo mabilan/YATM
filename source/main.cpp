@@ -290,7 +290,8 @@ int main()
         window.clear();
 
         // Draw Graph
-        grid.draw(window, tasklist, selected);
+        bool selectedValid = (selected != tasklist.end());
+        grid.draw(window, tasklist, selectedValid? selected->getId() : 0);
 
         // Render ImGui widgets on top of everything else
         ImGui::SFML::Render(window);
