@@ -21,17 +21,17 @@ private:
 };
 
 
-class DateTime{
+class Date{
 public:
-    DateTime();
+    Date();
 
-    DateTime(int month, int date, int year);
-    ~DateTime() = default;
+    Date(int month, int date, int year);
+    ~Date() = default;
 
-    void setDateTime(int month, int date, int year);
+    void setDate(int month, int date, int year);
     void currentTime();
-    std::vector<int> getDateTime();
-    void addDateTime(Time time);
+    std::vector<int> getDate();
+    void addDate(Time time);
 
 private:
     int _month;

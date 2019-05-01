@@ -27,7 +27,7 @@ std::vector<int> Time::getTime(){
 
 
 
-void DateTime::currentTime(){
+void Date::currentTime(){
     struct tm *currtime;
     std::time_t tim;
     time(&tim);
@@ -38,21 +38,21 @@ void DateTime::currentTime(){
     _year = currtime->tm_year + 1900;
 }
 
-DateTime::DateTime(int month, int date, int year)
+Date::Date(int month, int date, int year)
         : _month(month), _date(date), _year(year){}
 
-void DateTime::setDateTime(int month, int date, int year){
+void Date::setDate(int month, int date, int year){
     _month = month;
     _date = date;
     _year = year;
 }
 
-std::vector<int> DateTime::getDateTime(){
+std::vector<int> Date::getDate(){
     return std::vector<int> {_month, _date, _year};
 }
 
 
-void DateTime::addDateTime(Time time){
+void Date::addDate(Time time){
     std::vector<int> dt = time.getTime();
 
     _date += dt[1];
