@@ -46,7 +46,7 @@ sf::Vector2f TaskGrid::getPosition(const Task & task) const
     return sf::Vector2f{x, y};
 }
 
-void TaskGrid::draw(sf::RenderWindow & window, const std::vector<Task> & tasklist, std::vector<Task>::iterator selected)
+void TaskGrid::draw(sf::RenderWindow & window, const std::vector<Task> & tasklist, int idOfSelected)
 {
     window.draw(_axes);
 
@@ -54,7 +54,7 @@ void TaskGrid::draw(sf::RenderWindow & window, const std::vector<Task> & tasklis
     {
         auto position = getPosition(*iter);
 
-        if (iter == selected)
+        if (iter->getId() == idOfSelected)
         {
             iter->drawFocused(window, position);
         }

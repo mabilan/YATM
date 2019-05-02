@@ -7,10 +7,10 @@
 // Task Class Static Definitions 
 // ********************************************************************
 
-const float Task::MAX_IMPORTANCE = 10.0;
-const float Task::MIN_IMPORTANCE = 0.0;
-const float Task::MAX_URGENCY = 10.0;
-const float Task::MIN_URGENCY = 0.0;
+const float Task::MAX_IMPORTANCE {10.0};
+const float Task::MIN_IMPORTANCE {0.0};
+const float Task::MAX_URGENCY {10.0};
+const float Task::MIN_URGENCY {0.0};
 
 int Task::_numberOfTasks {0};
 
@@ -20,11 +20,7 @@ int Task::_numberOfTasks {0};
 // ********************************************************************
 
 Task::Task()
-    : _id {++_numberOfTasks},
-      _name {"New Task"},
-      _importance {0},
-      _urgency {0},
-      _ptrToCategory {nullptr}
+    : _id {++_numberOfTasks}
 { }
 
 const std::string & Task::getName() const
@@ -40,7 +36,7 @@ int Task::getId() const
 void Task::setName(std::string name)
 {
     _name = std::move(name);
-};
+}
 
 
 float Task::getImportance() const
@@ -96,4 +92,50 @@ void Task::drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const
     {
         Category::Default->drawUnfocused(window, *this, position);
     }
+}
+
+std::string Task::getDuration() const
+{
+    return std::to_string(_duration) + " " + _duration_unit;
+}
+
+void Task::setDuration(int duration, std::string unit)
+{
+    _duration = duration;
+    _duration_unit = move(unit);
+}
+
+status Task::getStatus() const
+{
+    return _status;
+}
+
+void Task::setStatus(status new_status)
+{
+    _status = new_status;
+}
+
+bool Task::isRecurring() const
+{
+    return _recurrence.empty();
+}
+
+std::string Task::getRecurrence() const
+{
+    return _recurrence;
+}
+
+void Task::setRecurrence(std::string recurrence)
+{
+    _recurrence = move(recurrence);
+}
+
+float Task::getAmountCompleted() const
+{
+    return _amount_completed;
+}
+
+void Task::setAmountCompleted(float completed)
+{
+    _amount_completed = completed;
 }
