@@ -42,8 +42,6 @@ void Category::setUnfocusedDrawable(std::unique_ptr<sf::CircleShape> && drawable
 
 void Category::drawFocused(sf::RenderWindow & window, sf::Vector2f position)
 {
-    (void) task; // @POTENTIAL - Inherited class which draws blased on this
-
     if (_focusedDrawablePtr)
     {
         const auto RADIUS = _focusedDrawablePtr->getRadius();
@@ -56,8 +54,6 @@ void Category::drawFocused(sf::RenderWindow & window, sf::Vector2f position)
 
 void Category::drawUnfocused(sf::RenderWindow & window, sf::Vector2f position)
 {
-    (void) task; // @POTENTIAL - Inherited class which draws blased on this
-
     if (_unfocusedDrawablePtr)
     {
         const auto RADIUS = _unfocusedDrawablePtr->getRadius();
