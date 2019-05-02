@@ -63,6 +63,7 @@ set(SOURCE_FILES
     source/category.cpp
     source/task.cpp
     source/task_grid.cpp
+    source/datetime.cpp
 )
 
 # Define sources and main executable
