@@ -7,27 +7,23 @@
 #include <ctime>
 
 using std::string;
-using std::endl;
-using std::cout;
 
 
-Time::Time(int hour, int date): _hour(hour), _date(date){}
+Time::Time(const int hour, const int date): _hour(hour), _date(date){}
 
 Time::Time(const Time &obj){
     _hour = obj._hour;
     _date = obj._date;
 }
 
-void Time::setTime(int hour, int date){
+void Time::setTime(const int hour, const int date){
     _hour = hour;
     _date = date;
 }
 
-std::vector<int> Time::getTime(){
+std::vector<int> Time::getTime()const{
     return std::vector<int> {_hour, _date};
 }
-
-
 
 void Date::currentDate(){
     struct tm *currtime;
@@ -44,22 +40,20 @@ void Date::currentDate(){
 Date::Date(int hour, int month, int date, int year)
         :_hour(hour), _month(month), _date(date), _year(year){}
 
-void Date::setDate(int hour, int month, int date, int year){
+void Date::setDate(const int hour, const int month, const int date, const int year){
     _hour = hour;
     _month = month;
     _date = date;
     _year = year;
 }
 
-std::vector<int> Date::getDate(){
+std::vector<int> Date::getDate() const{
     return std::vector<int> {_hour, _month, _date, _year};
 }
 
 
-void Date::addDate(Time time){
+void Date::addDate(const Time time){
     std::vector<int> dt = time.getTime();
-
-
     _hour += dt[0];
 
     while(true){
@@ -70,9 +64,7 @@ void Date::addDate(Time time){
             break;
         }
     }
-
     _date += dt[1];
-
     while(true){
         if(_date > _daysinmonths[_month-1]){
             _date -= _daysinmonths[_month-1];
@@ -89,17 +81,42 @@ void Date::addDate(Time time){
     }
 }
 
+Time Date::getTimeDiff (const Date &dt) const{
+    std::vector<int> temp = dt.getDate();
 
+    int temphour = _hour - temp[0];
+    int tempdate = _date - temp[2];
 
+    while(true){
+        if(temphour < 0){
+            temphour += 24;
+            tempdate--;
+        }else{
+            break;
+        }
+    }
 
+    int tempmonth = _month;
+    int tempyear = _year;
 
+    while(true)
+    {
+        if((tempdate < 0) || (tempmonth != temp[1]) || (tempyear != temp[3])){
+            if(tempmonth-1 < 1){
+                tempdate += 31;
+                tempmonth = 12;
+                tempyear--;
+            }else{
+                tempdate += _daysinmonths[tempmonth-2];
+                tempmonth--;
+            }
+        }else{
+            break;
+        }
 
+    }
 
-
-
-
-
-
-
-
+    Time test(temphour, tempdate);
+    return test;
+}
 

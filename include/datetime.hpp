@@ -14,7 +14,7 @@ public:
     ~Time() = default;
 
     void setTime(int hour, int date);
-    std::vector<int> getTime();
+    std::vector<int> getTime()const;
 private:
     int _hour;
     int _date;
@@ -30,9 +30,9 @@ public:
 
     void setDate(int hour, int month, int date, int year);
     void currentDate();
-    std::vector<int> getDate();
+    std::vector<int> getDate() const;
     void addDate(Time time);
-    //Time getTimeDiff(Date &dt1);
+    Time getTimeDiff(const Date &dt1) const;
 
 private:
     int _hour;
