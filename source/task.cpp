@@ -1,7 +1,6 @@
 // task.cpp
 
 #include "task.hpp"
-#include "date.hpp"
 
 // ********************************************************************
 // Task Class Static Definitions
@@ -23,9 +22,8 @@ Task::Task()
       importance {0},
       urgency {0},
       ptrToCategory {nullptr},
-      dueDate{},
       _id {++_numberOfTasks}
-{ }
+{}
 // add dummy date
 int Task::getId() const
 {
