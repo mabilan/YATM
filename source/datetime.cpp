@@ -11,63 +11,76 @@ using std::endl;
 using std::cout;
 
 
-Time::Time(int month, int date, int year): _month(month), _date(date), _year(year){}
+Time::Time(int hour, int date): _hour(hour), _date(date){}
 
 Time::Time(const Time &obj){
-    _month = obj._month;
+    _hour = obj._hour;
     _date = obj._date;
-    _year = obj._year;
 }
 
-void Time::setTime(int month, int date, int year){
-    _month = month;
+void Time::setTime(int hour, int date){
+    _hour = hour;
     _date = date;
-    _year = year;
 }
 
 std::vector<int> Time::getTime(){
-    return std::vector<int> {_month, _date, _year};
+    return std::vector<int> {_hour, _date};
 }
 
 
 
-void Date::currentTime(){
+void Date::currentDate(){
     struct tm *currtime;
     std::time_t tim;
     time(&tim);
     currtime = localtime(&tim);
 
+    _hour = currtime->tm_hour;
     _date = currtime->tm_mday;
     _month = currtime->tm_mon + 1;
     _year = currtime->tm_year + 1900;
 }
 
-Date::Date(int month, int date, int year)
-        : _month(month), _date(date), _year(year){}
+Date::Date(int hour, int month, int date, int year)
+        :_hour(hour), _month(month), _date(date), _year(year){}
 
-void Date::setDate(int month, int date, int year){
+void Date::setDate(int hour, int month, int date, int year){
+    _hour = hour;
     _month = month;
     _date = date;
     _year = year;
 }
 
 std::vector<int> Date::getDate(){
-    return std::vector<int> {_month, _date, _year};
+    return std::vector<int> {_hour, _month, _date, _year};
 }
 
 
 void Date::addDate(Time time){
     std::vector<int> dt = time.getTime();
 
-    _date += dt[1];
 
-    if(_date > _daysinmonths[_month-1]){
-        _date -= _daysinmonths[_month-1];
-        _month++;
+    _hour += dt[0];
+
+    while(true){
+        if(_hour > 23){
+            _hour -= 24;
+            _date++;
+        }else{
+            break;
+        }
     }
 
-    _month += dt[0];
-    _year += dt[2];
+    _date += dt[1];
+
+    while(true){
+        if(_date > _daysinmonths[_month-1]){
+            _date -= _daysinmonths[_month-1];
+            _month++;
+        }else{
+            break;
+        }
+    }
 
     if(_month > 12){
         int overflow = _month/12;
