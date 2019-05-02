@@ -34,18 +34,6 @@ public:
 
     int getId() const;
 
-    const std::string & getName() const;
-    void setName(std::string name);
-
-    float getImportance() const;
-    void setImportance(float value);
-
-    float getUrgency() const;
-    void setUrgency(float value);
-
-    std::shared_ptr<Category> getCategory() const;
-    void setCategory(std::shared_ptr<Category> ptrToCategory);
-
     void drawFocused(sf::RenderWindow & window, sf::Vector2f position) const;
     void drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const;
 
@@ -63,15 +51,17 @@ public:
     float getAmountCompleted() const;
     void setAmountCompleted(float);
 
+public:
+    // Public Attributes
+    std::string name{"New Task"};
+    float importance{0};
+    float urgency{0};
+    std::shared_ptr<Category> ptrToCategory {nullptr};
 
 private:
     int _id;
-    std::string _name{"New Task"};
-    float _importance{0};
-    float _urgency{0};
-    std::shared_ptr<Category> _ptrToCategory {nullptr};
     status _status{status::NOT_YET_STARTED};
-    // TODO: Change time based members to use the Date/Time class
+    // @TODO: Change time based members to use the Date/Time class
     int _duration{0};
     std::string _duration_unit{"minute"};
     std::string _recurrence{""};

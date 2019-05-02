@@ -6,7 +6,9 @@
 ########################################################################
 
 cmake_minimum_required(VERSION 3.0...3.14)
-cmake_policy(SET CMP0074 NEW)
+IF (WIN32) # @TODO - This is a hack solution
+    cmake_policy(SET CMP0074 NEW)
+ENDIF()
 
 project(yatm)
 set(CMAKE_CXX_STANDARD 14)
