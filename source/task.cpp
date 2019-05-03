@@ -60,30 +60,30 @@ void Task::setDuration(Time duration)
     _duration = duration;
 }
 
-status Task::getStatus() const
+Status Task::getStatus() const
 {
     return _status;
 }
 
 std::string Task::printStatus() const
 {
-    if ( _status == status::NOT_YET_STARTED)
+    if ( _status == Status::NOT_YET_STARTED)
     {
         return "NOT_YET_STARTED";
     }
-    else if ( _status == status::WORK_IN_PROGRESS)
+    else if ( _status == Status::WORK_IN_PROGRESS)
     {
         return "WORK_IN_PROGRESS";
     }
-    else if ( _status == status::DONE)
+    else if ( _status == Status::DONE)
     {
         return "DONE";
     }
-    else if ( _status == status::DEFERRED)
+    else if ( _status == Status::DEFERRED)
     {
         return "DEFERRED";
     }
-    else if ( _status == status::NOT_GOING_TO_HAPPEN)
+    else if ( _status == Status::NOT_GOING_TO_HAPPEN)
     {
         return "NOT_GOING_TO_HAPPEN";
     }
@@ -93,7 +93,7 @@ std::string Task::printStatus() const
     }
 }
 
-void Task::setStatus(status new_status)
+void Task::setStatus(Status new_status)
 {
     _status = new_status;
 }

@@ -260,29 +260,29 @@ int main()
             ImGui::Text("Current Status: %s", statusString.c_str());
             if (ImGui::CollapsingHeader("Status"))
             {
-                if (ImGui::RadioButton("NOT_YET_STARTED", status == status::NOT_YET_STARTED))
+                if (ImGui::RadioButton("NOT_YET_STARTED", status == Status::NOT_YET_STARTED))
                 {
-                    status = status::NOT_YET_STARTED;
+                    status = Status::NOT_YET_STARTED;
                     selected->setStatus(status);
                 }
-                if (ImGui::RadioButton("WORK_IN_PROGRESS", status == status::WORK_IN_PROGRESS))
+                if (ImGui::RadioButton("WORK_IN_PROGRESS", status == Status::WORK_IN_PROGRESS))
                 {
-                    status = status::WORK_IN_PROGRESS;
+                    status = Status::WORK_IN_PROGRESS;
                     selected->setStatus(status);
                 }
-                if (ImGui::RadioButton("DONE", status == status::DONE))
+                if (ImGui::RadioButton("DONE", status == Status::DONE))
                 {
-                    status = status::DONE;
+                    status = Status::DONE;
                     selected->setStatus(status);
                 }
-                if (ImGui::RadioButton("DEFERRED", status == status::DEFERRED))
+                if (ImGui::RadioButton("DEFERRED", status == Status::DEFERRED))
                 {
-                    status = status::DEFERRED;
+                    status = Status::DEFERRED;
                     selected->setStatus(status);
                 }
-                if (ImGui::RadioButton("NOT_GOING_TO_HAPPEN", status == status::NOT_GOING_TO_HAPPEN))
+                if (ImGui::RadioButton("NOT_GOING_TO_HAPPEN", status == Status::NOT_GOING_TO_HAPPEN))
                 {
-                    status = status::NOT_GOING_TO_HAPPEN;
+                    status = Status::NOT_GOING_TO_HAPPEN;
                     selected->setStatus(status);
                 }
             }

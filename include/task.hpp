@@ -13,7 +13,7 @@ class Category;
 #include "category.hpp"
 #include "datetime.hpp"
 
-enum class status
+enum class Status
 {
     NOT_YET_STARTED,
     WORK_IN_PROGRESS,
@@ -39,9 +39,9 @@ public:
     void drawFocused(sf::RenderWindow & window, sf::Vector2f position) const;
     void drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const;
 
-    status getStatus() const;
+    Status getStatus() const;
     std::string printStatus() const;
-    void setStatus(status new_status);
+    void setStatus(Status new_status);
 
     // TODO: Change time based parameters and return values to the Date/Time class
     Time getDuration() const;
@@ -66,7 +66,7 @@ public:
 
 private:
     int _id;
-    status _status{status::NOT_YET_STARTED};
+    Status _status{Status::NOT_YET_STARTED};
     // @TODO: Change time based members to use the Date/Time class
     Time _duration{0,0};
     Time _recurrence{0,0};
