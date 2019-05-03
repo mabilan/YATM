@@ -240,7 +240,9 @@ int main()
             auto name = selected->name;
             auto importance = selected->importance;
             auto urgency = selected->urgency;
-            auto dueDateDay = selected->
+            auto dueDateDay = selected->getDueDate().getDate()[0];
+            auto dueDateMonth = selected->getDueDate().getDate()[1];
+            auto dueDateYear = selected->getDueDate().getDate()[2];
             auto durationHours = selected->getDuration().getTime()[0];
             auto durationMinutes = selected->getDuration().getTime()[1];
 
@@ -261,6 +263,19 @@ int main()
             if (ImGui::SliderFloat("Urgency", &urgency, Task::MIN_URGENCY, Task::MAX_URGENCY))
             {
                 selected-> urgency = urgency;
+            }
+            ImGui::Text("Due Date");
+            if (ImGui::InputInt("Day", &dueDateDay))
+            {
+                selected->setDueDate({dueDateDay,dueDateMonth,dueDateYear});
+            }
+            if (ImGui::InputInt("Month", &dueDateMonth))
+            {
+                selected->setDueDate({dueDateDay,dueDateMonth,dueDateYear});
+            }
+            if (ImGui::InputInt("Year", &dueDateYear))
+            {
+                selected->setDueDate({dueDateDay,dueDateMonth,dueDateYear});
             }
             ImGui::Text("Duration");
             if (ImGui::InputInt("Hours", &durationHours))
