@@ -53,6 +53,9 @@ public:
     Time getAmountCompleted() const;
     void setAmountCompleted(Time);
 
+    Date getDueDate() const;
+    void setDueDate(Date);
+
 public:
     // Public Attributes
     std::string name{"New Task"};
@@ -67,6 +70,7 @@ private:
     Time _duration{0,0};
     Time _recurrence{0,0};
     Time _amountCompleted{0,0};
+    Date _dueDate{1,1,2019};
 
     // Denotes the total number of tasks ever created
     // (Increments each construction)

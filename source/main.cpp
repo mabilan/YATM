@@ -240,6 +240,7 @@ int main()
             auto name = selected->name;
             auto importance = selected->importance;
             auto urgency = selected->urgency;
+            auto dueDateDay = selected->
             auto durationHours = selected->getDuration().getTime()[0];
             auto durationMinutes = selected->getDuration().getTime()[1];
 

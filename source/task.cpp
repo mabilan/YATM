@@ -102,3 +102,13 @@ void Task::setAmountCompleted(Time completed)
 {
     _amountCompleted = completed;
 }
+
+Date Task::getDueDate() const
+{
+    return _dueDate;
+}
+
+void Task::setDueDate(Date date)
+{
+    _dueDate = date;
+}
