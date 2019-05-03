@@ -7,6 +7,8 @@
 #include <SFML/Window.hpp>
 #include <string>
 
+#include "json.hpp"
+using json = nlohmann::json;
 
 class Category;
 
@@ -32,6 +34,7 @@ public:
 
 public:
     Task();
+    Task(int, std::string, float, float, std::string, int, int, int);
     ~Task() = default;
 
     int getId() const;
@@ -43,7 +46,6 @@ public:
     std::string printStatus() const;
     void setStatus(status new_status);
 
-    // TODO: Change time based parameters and return values to the Date/Time class
     Time getDuration() const;
     void setDuration(Time duration);
 
@@ -57,6 +59,8 @@ public:
     Date getDueDate() const;
     void setDueDate(Date);
 
+    json generateJSON() const;
+
 public:
     // Public Attributes
     std::string name{"New Task"};
@@ -67,7 +71,6 @@ public:
 private:
     int _id;
     status _status{status::NOT_YET_STARTED};
-    // @TODO: Change time based members to use the Date/Time class
     Time _duration{0,0};
     Time _recurrence{0,0};
     Time _amountCompleted{0,0};

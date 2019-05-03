@@ -3,6 +3,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <fstream>
 
 #include "imgui.h"
 #include "imgui-SFML.h"
@@ -175,6 +176,33 @@ int main()
             if (ImGui::MenuItem("Help", "F1", displayHelpWindow))
             {
                 displayHelpWindow = true;
+            }
+            if (ImGui::MenuItem("Save"))
+            {
+                json savedTasks;
+                for (auto task : tasklist)
+                {
+                    savedTasks.push_back(task.generateJSON());
+                }
+                std::ofstream saveTasks;
+                saveTasks.open("tasks.json");
+                saveTasks << savedTasks;
+                saveTasks.close();
+            }
+            if (ImGui::MenuItem("Load"))
+            {
+                std::ifstream saveTasks;
+                saveTasks.open("tasks.json");
+                json savedTasks;
+                saveTasks >> savedTasks;
+                saveTasks.close();
+
+                for (auto task : savedTasks)
+                {
+                    tasklist.push_back({task["id"], task["name"], task["importance"],
+                                        task["urgency"], task["status"], task["due date day"],
+                                        task["due date month"], task["due date year"]});
+                }
             }
             ImGui::EndMainMenuBar();
 

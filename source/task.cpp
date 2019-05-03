@@ -21,6 +21,31 @@ Task::Task()
     : _id {++_numberOfTasks}
 { }
 
+Task::Task(int id, std::string name, float importance, float urgency, std::string status, int day, int month, int year)
+    : _id{id}, name{name}, importance{importance}, urgency{urgency}, _dueDate{day, month, year}
+{
+    if ( status == "NOT_YET_STARTED")
+    {
+        _status = status::NOT_YET_STARTED;
+    }
+    else if ( status == "WORK_IN_PROGRESS")
+    {
+        _status = status::WORK_IN_PROGRESS;
+    }
+    else if ( status == "DONE")
+    {
+        _status = status::DONE;
+    }
+    else if ( status == "DEFERRED")
+    {
+        _status = status::DEFERRED;
+    }
+    else if ( status == "NOT_GOING_TO_HAPPEN")
+    {
+        _status = status::NOT_GOING_TO_HAPPEN;
+    }
+}
+
 int Task::getId() const
 {
     return _id;
@@ -139,4 +164,21 @@ Date Task::getDueDate() const
 void Task::setDueDate(Date date)
 {
     _dueDate = date;
+}
+
+json Task::generateJSON() const
+{
+    json task_json = {
+            {"id", _id},
+            {"name", name},
+            {"importance", importance},
+            {"urgency",urgency},
+            {"status", Task::printStatus()},
+            {"due date day", _dueDate.getDate()[0]},
+            {"due date month", _dueDate.getDate()[1]},
+            {"due date year", _dueDate.getDate()[2]}
+
+    };
+
+    return task_json;
 }

@@ -18,6 +18,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
 include_directories(
     "include"
     "ext/imgui"
+    "ext/json"
 )
 
 
@@ -57,7 +58,7 @@ set(EXT_SOURCE_FILES
     ext/imgui/imgui_draw.cpp
     ext/imgui/imgui_widgets.cpp
     ext/imgui/imgui-SFML.cpp
-)
+        ext/json/json.hpp)
 
 # Define all sources which may get included in the testing
 set(SOURCE_FILES
