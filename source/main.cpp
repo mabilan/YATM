@@ -112,6 +112,11 @@ int main()
                     // Toggle Display Help Window
                     displayHelpWindow = !displayHelpWindow;
                 }
+                else if (ImGui::GetIO().WantCaptureKeyboard)
+                {
+                    // Prevent the following if ImGui wants to capture Keyboard input
+                    continue;
+                }
                 else if (event.key.code == sf::Keyboard::Q)
                 {
                     mode = AppMode::NEW_TASK;
