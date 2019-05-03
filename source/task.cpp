@@ -65,6 +65,34 @@ status Task::getStatus() const
     return _status;
 }
 
+std::string Task::printStatus() const
+{
+    if ( _status == status::NOT_YET_STARTED)
+    {
+        return "NOT_YET_STARTED";
+    }
+    else if ( _status == status::WORK_IN_PROGRESS)
+    {
+        return "WORK_IN_PROGRESS";
+    }
+    else if ( _status == status::DONE)
+    {
+        return "DONE";
+    }
+    else if ( _status == status::DEFERRED)
+    {
+        return "DEFERRED";
+    }
+    else if ( _status == status::NOT_GOING_TO_HAPPEN)
+    {
+        return "NOT_GOING_TO_HAPPEN";
+    }
+    else
+    {
+        return "No Status";
+    }
+}
+
 void Task::setStatus(status new_status)
 {
     _status = new_status;

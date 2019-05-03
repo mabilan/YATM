@@ -40,6 +40,7 @@ public:
     void drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const;
 
     status getStatus() const;
+    std::string printStatus() const;
     void setStatus(status new_status);
 
     // TODO: Change time based parameters and return values to the Date/Time class
