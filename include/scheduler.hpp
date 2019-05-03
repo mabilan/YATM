@@ -13,4 +13,6 @@ bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Ta
 
 float getDueDateWeight(Task const &task);
 
+float getTimeLeftWeight(Task const &task);
+
 #endif //YATM_SCHEDULER_H
