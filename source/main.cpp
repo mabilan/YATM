@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <memory>
+#include <string>
 
 #include "imgui.h"
 #include "imgui-SFML.h"
@@ -245,6 +246,8 @@ int main()
             auto dueDateYear = selected->getDueDate().getDate()[2];
             auto durationHours = selected->getDuration().getTime()[0];
             auto durationMinutes = selected->getDuration().getTime()[1];
+            std::string statusString = selected->printStatus();
+            auto status = selected->getStatus();
 
             ImGui::Value("Id", id);
 
@@ -253,6 +256,35 @@ int main()
             if (ImGui::InputText("Name", buffer, 256, ImGuiInputTextFlags_EnterReturnsTrue))
             {
                 selected-> name = std::string(buffer);
+            }
+            ImGui::Text("Current Status: %s", statusString.c_str());
+            if (ImGui::CollapsingHeader("Status"))
+            {
+                if (ImGui::RadioButton("NOT_YET_STARTED", status == status::NOT_YET_STARTED))
+                {
+                    status = status::NOT_YET_STARTED;
+                    selected->setStatus(status);
+                }
+                if (ImGui::RadioButton("WORK_IN_PROGRESS", status == status::WORK_IN_PROGRESS))
+                {
+                    status = status::WORK_IN_PROGRESS;
+                    selected->setStatus(status);
+                }
+                if (ImGui::RadioButton("DONE", status == status::DONE))
+                {
+                    status = status::DONE;
+                    selected->setStatus(status);
+                }
+                if (ImGui::RadioButton("DEFERRED", status == status::DEFERRED))
+                {
+                    status = status::DEFERRED;
+                    selected->setStatus(status);
+                }
+                if (ImGui::RadioButton("NOT_GOING_TO_HAPPEN", status == status::NOT_GOING_TO_HAPPEN))
+                {
+                    status = status::NOT_GOING_TO_HAPPEN;
+                    selected->setStatus(status);
+                }
             }
 
             if (ImGui::SliderFloat("Importance", &importance, Task::MIN_IMPORTANCE, Task::MAX_IMPORTANCE))
@@ -286,6 +318,7 @@ int main()
             {
                 selected->setDuration({durationHours,durationMinutes});
             }
+
 
             ImGui::End(); // End "Task Details"
         }
