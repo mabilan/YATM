@@ -22,7 +22,7 @@ bool TaskGrid::contains(int x, int y) const
 {
     return _bounds.contains(x, y);
 }
-
+//@TODO Rename, refactor
 sf::Vector2f TaskGrid::getUrgVsImp(int x, int y) const
 {
     const auto URG_DIFF = Task::MAX_URGENCY - Task::MIN_URGENCY;
@@ -35,11 +35,11 @@ sf::Vector2f TaskGrid::getUrgVsImp(int x, int y) const
 
 sf::Vector2f TaskGrid::getPosition(const Task & task) const
 {
-    auto urgency = task.getUrgency();
-    auto importance = task.getImportance();
+    auto urgency = task.urgency;
+    auto importance = task.importance;
 
     float x = _bounds.width*urgency/(Task::MAX_URGENCY - Task::MIN_URGENCY) + _bounds.left;
- 
+
     auto IMP_DIFF = Task::MAX_IMPORTANCE - Task::MIN_IMPORTANCE;
     float y = _bounds.height*(IMP_DIFF - importance)/(IMP_DIFF) + _bounds.top;
 
