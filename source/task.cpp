@@ -50,15 +50,14 @@ void Task::drawUnfocused(sf::RenderWindow & window, sf::Vector2f position) const
     }
 }
 
-std::string Task::getDuration() const
+Time Task::getDuration() const
 {
-    return std::to_string(_duration) + " " + _duration_unit;
+    return _duration;
 }
 
-void Task::setDuration(int duration, std::string unit)
+void Task::setDuration(Time duration)
 {
     _duration = duration;
-    _duration_unit = move(unit);
 }
 
 status Task::getStatus() const
@@ -73,25 +72,33 @@ void Task::setStatus(status new_status)
 
 bool Task::isRecurring() const
 {
-    return _recurrence.empty();
+    auto time = _recurrence.getTime();
+    if(time[0] == 0 && time[1] == 0)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-std::string Task::getRecurrence() const
+Time Task::getRecurrence() const
 {
     return _recurrence;
 }
 
-void Task::setRecurrence(std::string recurrence)
+void Task::setRecurrence(Time recurrence)
 {
-    _recurrence = move(recurrence);
+    _recurrence = std::move(recurrence);
 }
 
-float Task::getAmountCompleted() const
+Time Task::getAmountCompleted() const
 {
-    return _amount_completed;
+    return _amountCompleted;
 }
 
-void Task::setAmountCompleted(float completed)
+void Task::setAmountCompleted(Time completed)
 {
-    _amount_completed = completed;
+    _amountCompleted = completed;
 }

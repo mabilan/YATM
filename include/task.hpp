@@ -6,11 +6,12 @@
 #include <memory>
 #include <SFML/Window.hpp>
 #include <string>
-#include <chrono>
+
 
 class Category;
 
 #include "category.hpp"
+#include "datetime.hpp"
 
 enum class status
 {
@@ -46,11 +47,11 @@ public:
     void setDuration(Time duration);
 
     bool isRecurring() const;
-    std::string getRecurrence() const;
-    void setRecurrence(std::string recurrence);
+    Time getRecurrence() const;
+    void setRecurrence(Time);
 
-    float getAmountCompleted() const;
-    void setAmountCompleted(float);
+    Time getAmountCompleted() const;
+    void setAmountCompleted(Time);
 
 public:
     // Public Attributes
@@ -63,10 +64,9 @@ private:
     int _id;
     status _status{status::NOT_YET_STARTED};
     // @TODO: Change time based members to use the Date/Time class
-    int _duration{0};
-    std::string _duration_unit{"minute"};
-    std::string _recurrence{""};
-    float _amount_completed{0};
+    Time _duration{0,0};
+    Time _recurrence{0,0};
+    Time _amountCompleted{0,0};
 
     // Denotes the total number of tasks ever created
     // (Increments each construction)
