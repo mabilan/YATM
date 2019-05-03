@@ -1,9 +1,10 @@
-// scheduler.hpp
+//scheduler.hpp
 
-#ifndef YATM_SCHEDULER_H
-#define YATM_SCHEDULER_H
+#ifndef YATM2_SCHEDULER_HPP
+#define YATM2_SCHEDULER_HPP
 
 #include "task.hpp"
+#include <algorithm>
 
 std::vector<Task> adjustSchedule(std::vector<Task> const &tasklist);
 
@@ -13,4 +14,6 @@ bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Ta
 
 float getDueDateWeight(Task const &task);
 
-#endif //YATM_SCHEDULER_H
+float getTimeLeftWeight(Task const &task, const float &dueDateWeight);
+
+#endif //YATM2_SCHEDULER_HPP

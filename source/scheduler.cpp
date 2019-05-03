@@ -9,10 +9,10 @@ std::vector<Task> finalSchedule;
 
 for(auto task : tasklist)
 {
-taskSchedule.push_back(std::make_pair(getPriority(task), task));
+taskSchedule.emplace_back(std::make_pair(getPriority(task), task));
 }
 
-std::sort(taskSchedule.begin(), taskSchedule.end());
+std::sort(taskSchedule.begin(), taskSchedule.end(), pairFirstCompare);
 
 for(auto task : taskSchedule)
 {
