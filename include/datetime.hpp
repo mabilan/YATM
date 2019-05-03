@@ -9,15 +9,16 @@
 
 class Time{
 public:
-    Time(int hour, int date);
+    Time(int hour, int minute);
     Time(const Time &obj);
     ~Time() = default;
 
-    void setTime(int hour, int date);
+    void setTime(int hour, int minute);
+
     std::vector<int> getTime()const;
 private:
     int _hour;
-    int _date;
+    int _minute;
 };
 
 
@@ -26,20 +27,20 @@ public:
     Date() = default;
     ~Date() = default;
 
-    Date(int hour, int month, int date, int year);
+    Date(int day, int month, int year);
 
-    void setDate(int hour, int month, int date, int year);
+    void setDate(int day, int month, int year);
     void currentDate();
     std::vector<int> getDate() const;
-    void addDate(Time time);
-    Time getTimeDiff(const Date &dt1) const;
+
+
 
 private:
-    int _hour;
+    bool isDayValid(int) const;
+    bool isValidDate();
+    int _day;
     int _month;
-    int _date;
     int _year;
-    std::vector<int> _daysinmonths {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 };
 
 

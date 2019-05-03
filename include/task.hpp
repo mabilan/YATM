@@ -6,6 +6,7 @@
 #include <memory>
 #include <SFML/Window.hpp>
 #include <string>
+#include <chrono>
 
 class Category;
 
@@ -41,8 +42,8 @@ public:
     void setStatus(status new_status);
 
     // TODO: Change time based parameters and return values to the Date/Time class
-    std::string getDuration() const;
-    void setDuration(int duration, std::string unit);
+    Time getDuration() const;
+    void setDuration(Time duration);
 
     bool isRecurring() const;
     std::string getRecurrence() const;

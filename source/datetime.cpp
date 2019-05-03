@@ -9,114 +9,137 @@
 using std::string;
 
 
-Time::Time(const int hour, const int date): _hour(hour), _date(date){}
+Time::Time(const int hour, const int minute): _hour(hour), _minute(minute){}
 
-Time::Time(const Time &obj){
+Time::Time(const Time &obj)
+{
     _hour = obj._hour;
-    _date = obj._date;
+    _minute = obj._minute;
 }
 
-void Time::setTime(const int hour, const int date){
+void Time::setTime(const int hour, const int minute)
+{
     _hour = hour;
-    _date = date;
+    _minute = minute;
 }
 
-std::vector<int> Time::getTime()const{
-    return std::vector<int> {_hour, _date};
+std::vector<int> Time::getTime()const
+{
+    return std::vector<int> {_hour, _minute};
 }
 
-void Date::currentDate(){
+
+Date::Date(int day, int month, int year)
+        :_day(day),  _month(month), _year(year){}
+
+void Date::currentDate()
+{
     struct tm *currtime;
     std::time_t tim;
     time(&tim);
     currtime = localtime(&tim);
 
-    _hour = currtime->tm_hour;
-    _date = currtime->tm_mday;
+    _day = currtime->tm_mday;
     _month = currtime->tm_mon + 1;
     _year = currtime->tm_year + 1900;
 }
 
-Date::Date(int hour, int month, int date, int year)
-        :_hour(hour), _month(month), _date(date), _year(year){}
-
-void Date::setDate(const int hour, const int month, const int date, const int year){
-    _hour = hour;
+void Date::setDate(const int day, const int month, const int year)
+{
+    _day = day;
     _month = month;
-    _date = date;
     _year = year;
 }
 
-std::vector<int> Date::getDate() const{
-    return std::vector<int> {_hour, _month, _date, _year};
+std::vector<int> Date::getDate() const
+{
+    return std::vector<int> {_day, _month, _year};
 }
 
-
-void Date::addDate(const Time time){
-    std::vector<int> dt = time.getTime();
-    _hour += dt[0];
-
-    while(true){
-        if(_hour > 23){
-            _hour -= 24;
-            _date++;
-        }else{
-            break;
-        }
-    }
-    _date += dt[1];
-    while(true){
-        if(_date > _daysinmonths[_month-1]){
-            _date -= _daysinmonths[_month-1];
-            _month++;
-        }else{
-            break;
-        }
-    }
-
-    if(_month > 12){
-        int overflow = _month/12;
-        _month -= 12*overflow;
-        _year += overflow;
-    }
-}
-
-Time Date::getTimeDiff (const Date &dt) const{
-    std::vector<int> temp = dt.getDate();
-
-    int temphour = _hour - temp[0];
-    int tempdate = _date - temp[2];
-
-    while(true){
-        if(temphour < 0){
-            temphour += 24;
-            tempdate--;
-        }else{
-            break;
-        }
-    }
-
-    int tempmonth = _month;
-    int tempyear = _year;
-
-    while(true)
+bool Date::isDayValid(int d) const
+{
+    if(_day > d)
     {
-        if((tempdate < 0) || (tempmonth != temp[1]) || (tempyear != temp[3])){
-            if(tempmonth-1 < 1){
-                tempdate += 31;
-                tempmonth = 12;
-                tempyear--;
-            }else{
-                tempdate += _daysinmonths[tempmonth-2];
-                tempmonth--;
-            }
-        }else{
-            break;
-        }
-
+        return false;
     }
-
-    Time test(temphour, tempdate);
-    return test;
+    else
+    {
+        return true;
+    }
 }
 
+bool Date::isValidDate()
+{
+    if(_day < 1)
+    {
+        return false;
+    }
+
+    if(_month == 1)
+    {
+        return isDayValid(31);
+    }
+    else if(_month == 2)
+    {
+        if(_year % 4 != 0)
+        {
+            return isDayValid(28);
+        }
+        else if(_year % 100 != 0)
+        {
+            return isDayValid(29);
+        }
+        else if(_year % 400 != 0)
+        {
+            return isDayValid(28);
+        }
+        else
+        {
+            return isDayValid(29);
+        }
+    }
+    else if(_month == 3)
+    {
+        return isDayValid(31);
+    }
+    else if(_month == 4)
+    {
+        return isDayValid(30);
+    }
+    else if(_month == 5)
+    {
+        return isDayValid(31);
+    }
+    else if(_month == 6)
+    {
+        return isDayValid(30);
+    }
+    else if(_month == 7)
+    {
+        return isDayValid(31);
+    }
+    else if(_month == 8)
+    {
+        return isDayValid(31);
+    }
+    else if(_month == 9)
+    {
+        return isDayValid(30);
+    }
+    else if(_month == 10)
+    {
+        return isDayValid(31);
+    }
+    else if(_month == 11)
+    {
+        return isDayValid(30);
+    }
+    else if(_month == 12)
+    {
+        return isDayValid(31);
+    }
+    else
+    {
+        return false;
+    }
+}

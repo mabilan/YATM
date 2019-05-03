@@ -145,7 +145,7 @@ int main()
                             auto urgVsImp = grid.getUrgVsImp(x, y);
 
                             // selected points to the newly created element
-                            selected =  std::prev(tasklist.end());;
+                            selected =  std::prev(tasklist.end());
 
                             selected-> urgency = urgVsImp.x;
                             selected-> importance = urgVsImp.y;
@@ -240,6 +240,7 @@ int main()
             auto name = selected->name;
             auto importance = selected->importance;
             auto urgency = selected->urgency;
+            auto duration = selected->getDuration();
 
             ImGui::Value("Id", id);
 
@@ -274,7 +275,7 @@ int main()
             auto name = iter->name;
             auto id = iter->getId();
 
-            name = name + "##" + std::to_string(id);
+            name += "##" + std::to_string(id);
             if (ImGui::Selectable(name.c_str(), iter == selected))
             {
                 selected = iter;
