@@ -11,6 +11,6 @@ float getPriority(Task const &task);
 
 bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y);
 
-float dueDateWeight(Task const &task);
+float getDueDateWeight(Task const &task);
 
 #endif //YATM_SCHEDULER_H
