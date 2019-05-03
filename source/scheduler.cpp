@@ -2,26 +2,6 @@
 
 #include "scheduler.hpp"
 
-std::vector<Task> adjustSchedule(std::vector<Task> const &tasklist)
-{
-std::vector<std::pair<float, Task>> taskSchedule;
-std::vector<Task> finalSchedule;
-
-for(auto task : tasklist)
-{
-taskSchedule.emplace_back(std::make_pair(getPriority(task), task));
-}
-
-std::sort(taskSchedule.begin(), taskSchedule.end(), pairFirstCompare);
-
-for(auto task : taskSchedule)
-{
-finalSchedule.push_back(task.second);
-}
-
-return finalSchedule;
-}
-
 float getPriority(Task const &task)
 {
     float dueDateWeight = getDueDateWeight(task);
@@ -36,11 +16,6 @@ float getPriority(Task const &task)
     }
 
     return weightedImportance + (task.urgency)*(task.urgency);
-}
-
-bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y)
-{
-    return x.first > y.first;
 }
 
 float getDueDateWeight(Task const &task)
@@ -75,4 +50,14 @@ float getDueDateWeight(Task const &task)
     }
 
     return taskDurationMinutes/minutesUntilDue;
+}
+
+bool leftTaskHasHigherPriority(const Task & lhs, const Task & rhs)
+{
+    return getPriority(lhs) >= getPriority(rhs); 
+}
+
+void sortByHighestPriority(std::vector<Task> & tasklist)
+{
+    std::sort(tasklist.begin(), tasklist.end(), leftTaskHasHigherPriority);
 }

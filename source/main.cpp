@@ -13,6 +13,7 @@
 #include "category.hpp"
 #include "task.hpp"
 #include "task_grid.hpp"
+#include "scheduler.hpp"
 
 enum class AppMode
 {
@@ -64,7 +65,7 @@ int main()
 
     // @TODO - Load existing task list from file
     std::vector<Task> tasklist{};
-    auto selected = tasklist.end(); // <- Used for focusing tasks
+    auto selectedId = 0; // <- Used for focusing tasks
 
     // Setup TaskGrid
     auto bounds = sf::FloatRect(0.0, 0.0, 600.0, 600.0);
@@ -146,10 +147,11 @@ int main()
                             auto urgVsImp = grid.getUrgVsImp(x, y);
 
                             // selected points to the newly created element
-                            selected =  std::prev(tasklist.end());
+                            auto selected =  std::prev(tasklist.end());
 
                             selected-> urgency = urgVsImp.x;
                             selected-> importance = urgVsImp.y;
+                            selectedId = selected-> getId();
                         }
                         else
                         {
@@ -163,6 +165,16 @@ int main()
 
         // Imgui Update() Required
         ImGui::SFML::Update(window, deltaClock.restart());
+
+        // Adjust schedule
+        sortByHighestPriority(tasklist);
+
+        // Provide iterator to selected Task in tasklist
+        auto selected = std::find_if(tasklist.begin(),
+                         tasklist.end(),
+                         [&](const auto & task){
+                            return task.getId() == selectedId;
+                         });
 
 
         // ************************************************************
@@ -196,7 +208,7 @@ int main()
 
         // *** The following ImGui windows need a nonempty tasklist and focused task
 
-        if (tasklist.empty() || selected == tasklist.end())
+        if (tasklist.empty() || selectedId == 0)
         {
             // Do nothing
         }

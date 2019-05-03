@@ -6,14 +6,14 @@
 #include "task.hpp"
 #include <algorithm>
 
-std::vector<Task> adjustSchedule(std::vector<Task> const &tasklist);
-
 float getPriority(Task const &task);
-
-bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y);
 
 float getDueDateWeight(Task const &task);
 
 float getTimeLeftWeight(Task const &task, const float &dueDateWeight);
+
+bool leftTaskHasHigherPriority(const Task & lhs, const Task & rhs);
+
+void sortByHighestPriority(std::vector<Task> & tasklist);
 
 #endif //YATM2_SCHEDULER_HPP
