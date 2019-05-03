@@ -22,3 +22,7 @@ finalSchedule.push_back(task.second);
 return finalSchedule;
 }
 
+float getPriority(Task const &task)
+{
+    return 0;
+}
