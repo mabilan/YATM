@@ -58,6 +58,9 @@ float getDueDateWeight(Task const &task)
     int minutesUntilDue = (task.getDueDate().getDate()[0] - rightNow.getDate()[0])*yearMinutes +
                           (task.getDueDate().getDate()[1] - rightNow.getDate()[1])*monthMinutes +
                           (task.getDueDate().getDate()[2] - rightNow.getDate()[2])*dayMinutes;
-
+    if (minutesUntilDue <= 0)
+    {
+        return 99999999999;
+    }
     return taskDurationMinutes/minutesUntilDue;
 }
