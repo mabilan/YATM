@@ -24,7 +24,18 @@ return finalSchedule;
 
 float getPriority(Task const &task)
 {
-    return 0;
+    float dueDateWeight = getDueDateWeight(task);
+    float weightedImportance;
+    if (dueDateWeight >= 0)
+    {
+        weightedImportance = task.importance * dueDateWeight;
+    }
+    else
+    {
+        weightedImportance = (task.importance)*(task.importance);
+    }
+
+    return weightedImportance + (task.urgency)*(task.urgency);
 }
 
 bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y)
