@@ -17,7 +17,7 @@ This is a graphical task manager that utilizes importance and urgency to priorit
 - Charles Emerson
 - Nami Kim
 - Bryant Klug
-- Laura Lindell
+- Laura Lundell
 - Andrew Parker
 
 [Join our development discord server!](https://discord.gg/ZzpX3Qu)
