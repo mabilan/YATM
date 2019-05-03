@@ -64,8 +64,3 @@ float getDueDateWeight(Task const &task)
     }
     return taskDurationMinutes/minutesUntilDue;
 }
-
-float getTimeLeftWeight(Task const &task)
-{
-    return 0;
-}
