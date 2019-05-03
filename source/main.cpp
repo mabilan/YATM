@@ -355,7 +355,7 @@ int main()
             name += "##" + std::to_string(id);
             if (ImGui::Selectable(name.c_str(), iter == selected))
             {
-                selected = iter;
+                selectedId = iter->getId();
             }
         }
         ImGui::End(); // End "Task Stack"
@@ -369,8 +369,7 @@ int main()
         window.clear();
 
         // Draw Graph
-        bool selectedValid = (selected != tasklist.end());
-        grid.draw(window, tasklist, selectedValid? selected->getId() : 0);
+        grid.draw(window, tasklist, selectedId);
 
         // Render ImGui widgets on top of everything else
         ImGui::SFML::Render(window);
