@@ -40,7 +40,7 @@ float getPriority(Task const &task)
 
 bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y)
 {
-    return x.first < y.first;
+    return x.first > y.first;
 }
 
 float getDueDateWeight(Task const &task)
