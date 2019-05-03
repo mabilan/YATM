@@ -26,3 +26,8 @@ float getPriority(Task const &task)
 {
     return 0;
 }
+
+bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y)
+{
+    return x.first < y.first;
+}
