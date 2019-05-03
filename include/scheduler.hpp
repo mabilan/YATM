@@ -9,6 +9,6 @@ std::vector<Task> adjustSchedule(std::vector<Task> const &tasklist);
 
 float getPriority(Task const &task);
 
-bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task>);
+bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Task> &y);
 
 #endif //YATM_SCHEDULER_H
