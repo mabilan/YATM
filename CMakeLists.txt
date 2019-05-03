@@ -66,7 +66,7 @@ set(SOURCE_FILES
     source/task.cpp
     source/task_grid.cpp
     source/datetime.cpp
-)
+    source/scheduler.cpp)
 
 # Define sources and main executable
 set(EXECUTABLE_NAME yatm)
