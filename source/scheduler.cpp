@@ -34,5 +34,30 @@ bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Ta
 
 float dueDateWeight(Task const &task)
 {
-    return 0;
+    Date defaultDueDate = {1, 1, 2019};
+
+    if (task.getDueDate().getDate() == defaultDueDate.getDate())
+    {
+        return 0;
+    }
+    else if (task.getDueDate().getDate()[0] == 0 &&
+             task.getDueDate().getDate()[1] == 0 &&
+             task.getDueDate().getDate()[2] == 0)
+    {
+        return 0;
+    }
+
+    const int yearMinutes = 525600;
+    const int monthMinutes = 43200;
+    const int dayMinutes = 1440;
+
+    Date rightNow;
+    rightNow.currentDate();
+
+    int taskDurationMinutes = (task.getDuration().getTime()[0]*60) + (task.getDuration().getTime()[1]);
+    int minutesUntilDue = (task.getDueDate().getDate()[0] - rightNow.getDate()[0])*yearMinutes +
+                          (task.getDueDate().getDate()[1] - rightNow.getDate()[1])*monthMinutes +
+                          (task.getDueDate().getDate()[2] - rightNow.getDate()[2])*dayMinutes;
+
+    return taskDurationMinutes/minutesUntilDue;
 }
