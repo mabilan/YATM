@@ -31,3 +31,8 @@ bool pairFirstCompare(const std::pair<float, Task> &x, const std::pair<float, Ta
 {
     return x.first < y.first;
 }
+
+float dueDateWeight(Task const &task)
+{
+    return 0;
+}
