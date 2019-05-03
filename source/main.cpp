@@ -240,7 +240,8 @@ int main()
             auto name = selected->name;
             auto importance = selected->importance;
             auto urgency = selected->urgency;
-            auto duration = selected->getDuration();
+            auto durationHours = selected->getDuration().getTime()[0];
+            auto durationMinutes = selected->getDuration().getTime()[1];
 
             ImGui::Value("Id", id);
 
@@ -260,6 +261,16 @@ int main()
             {
                 selected-> urgency = urgency;
             }
+            ImGui::Text("Duration");
+            if (ImGui::InputInt("Hours", &durationHours))
+            {
+                selected->setDuration({durationHours,durationMinutes});
+            }
+            if (ImGui::InputInt("Minutes", &durationMinutes))
+            {
+                selected->setDuration({durationHours,durationMinutes});
+            }
+
             ImGui::End(); // End "Task Details"
         }
 
